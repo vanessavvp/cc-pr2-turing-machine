@@ -15,6 +15,8 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <utility>
+#include <algorithm>
 
 #include "./State.h"
 #include "./Tape.h"
@@ -30,6 +32,8 @@ class TuringMachine  {
     void readFile(string inputFilename);
     void setAlphabet(string lineInfo);
     void setInitialState(string lineInfo, vector<State>& states);
+    void setAcceptationStates(string lineInfo, vector<State>& states);
+    void setTransition(string lineInfo, vector<State>& states);
     void setTapeAlphabet(string lineInfo);
     void saveStates(string lineInfo, vector<State>& states);
     void start();

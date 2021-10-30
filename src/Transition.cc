@@ -40,6 +40,11 @@ void Transition::setWritingSymbols(vector<Symbol> writingSymbols) {
 }
 
 
+void Transition::setMovements(vector<string> movements) {
+  movements_ = movements;
+}
+
+
 string Transition::getCurrentState() {
   return currentState_;
 }
@@ -61,17 +66,15 @@ vector<Symbol> Transition::getWritingSymbols() {
 
 
 void Transition::printTransition() {
-  cout << "\nCurrent state: " << currentState_ << endl;
-  cout << "Reading symbols: ";
+  cout << "\n" << currentState_ << " ";
   for (auto symbol : readingSymbols_) {
     cout << symbol.getSymbol() << " ";
   }
-  cout << "\nNext state: " << nextState_ << endl;
-  cout << "Reading symbols: ";
+  cout << nextState_ << " ";
   for (auto symbol : writingSymbols_) {
     cout << symbol.getSymbol() << " ";
   }
-  cout << "\nMovements: ";
+  cout << " ";
   for (auto movement : movements_) {
     cout << movement << " ";
   }

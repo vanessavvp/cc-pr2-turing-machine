@@ -30,6 +30,7 @@ class Transition {
     void setReadingSymbols(vector<Symbol> readingSymbols);
     void setNextState(string nextState);
     void setWritingSymbols(vector<Symbol> symbolsToIntroduce);
+    void setMovements(vector<string> movements);
     string getCurrentState();
     vector<Symbol> getReadingSymbols();
     string getNextState();

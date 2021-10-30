@@ -69,7 +69,7 @@ void TuringMachine::setTapeAlphabet(string lineInfo) {
 void TuringMachine::setInitialState(string lineInfo, vector<State>& states) {
   string error;
   if (hasState(lineInfo, states)) {
-    for (auto state : states) {
+    for (auto &state : states) {
       if (state.getIdentifier() == lineInfo) {
         state.setInitial(true);
         currentState_ = lineInfo;
@@ -79,6 +79,82 @@ void TuringMachine::setInitialState(string lineInfo, vector<State>& states) {
     error = "The readed state is not part of the Turing Machine states\n";
     throw error;
   }
+}
+
+
+void TuringMachine::setAcceptationStates(string lineInfo, vector<State>& states) {
+  string error;
+  string stateIdentifier;
+  stringstream token(lineInfo);
+  while (getline(token, stateIdentifier, ' ')) {
+    if (hasState(stateIdentifier, states)) {
+      for (auto &state : states) {
+        if (state.getIdentifier() == lineInfo) {
+          state.setAcceptation(true);
+        }
+      }
+    } else {
+      error = "The readed state is not part of the Turing Machine states\n";
+      throw error;
+    }
+  }
+}
+
+
+void TuringMachine::setTransition(string lineInfo, vector<State>& states) {
+  string word, error;
+  Transition transition;
+  stringstream ss(lineInfo);
+
+  // Current state
+  ss >> word;
+  for (auto state: states) {
+    if (word == state.getIdentifier()) {
+      transition.setCurrentState(state.getIdentifier());
+    }
+  }
+
+  // Reading symbols
+  vector<Symbol> readingSymbols;
+  for (int i = 0; i < numberOfTapes_; i++) {
+    ss >> word;
+    Symbol readingSymbol(word);
+    readingSymbols.push_back(readingSymbol);
+  }
+  transition.setReadingSymbols(readingSymbols);
+
+  // Next state
+  ss >> word;
+  for (auto state: states) {
+    if (word == state.getIdentifier()) {
+      transition.setNextState(state.getIdentifier());
+    }
+  }
+
+  // Writing symbols
+  vector<Symbol> writingSymbols;
+  for (int i = 0; i < numberOfTapes_; i++) {
+    ss >> word;
+    Symbol writingSymbol(word);
+    writingSymbols.push_back(writingSymbol);
+  }
+  transition.setWritingSymbols(writingSymbols);
+
+  // Movements
+  vector<string> movements;
+  for (int i = 0; i < numberOfTapes_; i++) {
+    ss >> word;
+    movements.push_back(word);
+  }
+  transition.setMovements(movements);
+
+  // Including transitions to a state
+  auto it = find(states.begin(), states.end(), State(transition.getCurrentState()));
+  if (it != states.end()) {
+    (*it).addTransition(transition);
+  }
+
+  transition.printTransition();
 }
 
 
@@ -110,10 +186,6 @@ void TuringMachine::readFile(string inputFilename) {
     // Tape alphabet
     getline(file, lineInfo);
     setTapeAlphabet(lineInfo);
-    /*cout << "Alfabeto cinta: ";
-    for (auto symbol: tapeAlphabet_.getAlphabet()) {
-    cout << symbol.getSymbol() << " ";
-    }*/
 
     // Initial State
     getline(file, lineInfo);
@@ -124,6 +196,18 @@ void TuringMachine::readFile(string inputFilename) {
     whiteSymbol_ = lineInfo;
 
     // Acceptation states
+    getline(file, lineInfo);
+    setAcceptationStates(lineInfo, states);
+
+    // Number of tapes
+    getline(file, lineInfo);
+    numberOfTapes_ = stoi(lineInfo);
+    cout << "Numero de cintas " << numberOfTapes_ << endl;
+
+    // Transitions
+    while(getline(file, lineInfo)) {
+      setTransition(lineInfo, states);
+    }
   }
 }
 
