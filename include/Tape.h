@@ -22,15 +22,20 @@ using namespace std;
 #pragma once
 class Tape {
   public:
-    Tape(Alphabet alphabet, string tapeContent);
+    Tape(Alphabet alphabet, string tapeContent, Symbol whiteSymbol);
     void setAlphabet(Alphabet alphabet);
     void setTape(string tapeContent);
+    void setHead(Symbol newHeadSymbol);
+    void moveLeft();
+    void moveRight();
     Alphabet getAlphabet() const;
+    list<Symbol>::iterator& getHead();
     
   private:
     list<Symbol> tape_;
     Alphabet alphabet_;
     list<Symbol>::iterator head_;
+    Symbol whiteSymbol_;
 };
 
 #endif // !TAPE_H

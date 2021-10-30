@@ -207,17 +207,48 @@ void TuringMachine::readFile(string inputFilename) {
     while(getline(file, lineInfo)) {
       setTransition(lineInfo, states);
     }
+ 
+    // States set
+    for (auto state: states) {
+      auto it = find(states.begin(), states.end(), state);
+      states_.insert(*it);
+    }
   }
 }
 
 
 void TuringMachine::setTapes(string tapeInput) {
   for (int i = 0; i < numberOfTapes_; i++) {
-    Tape tape(tapeAlphabet_, tapeInput);
+    Tape tape(tapeAlphabet_, tapeInput, whiteSymbol_);
     tapes_.push_back(tape);
   }
 }
 
-void TuringMachine::start() {
 
+bool TuringMachine::start() {
+  /* Pseudocódigo - 101
+  Hay transiciones posibles para el estado actual (q0, head)? - Método booleano
+  */
+  string error;
+  auto it = find(states_.begin(), states_.end(), currentState_);
+  /*int transitionCounter = -1;
+  while (transitionCounter != 0) {
+    transitionCounter = 0;
+    for (auto transition: it->getTransitions()) {
+      for (int i = 0; i < numberOfTapes_; i++) {
+        if (transition.isPossibleToTransit(tapes_[i].getHead()->getSymbol(), i)) {
+          tapes_[i].setHead(transition.getWritingSymbols()[i]);
+          if (transition.getMovements()[i] == "R") {
+            tapes_[i].moveRight();
+          } else {
+            tapes_[i].moveLeft();
+          }
+          currentState_ = transition.getNextState();
+          it = find(states_.begin(), states_.end(), currentState_);
+          transitionCounter++;
+        } 
+      }
+    }
+  }
+  return (it->isAcceptation());*/
 }

@@ -11,11 +11,11 @@
 
 #include "../include/Tape.h"
 
-Tape::Tape(Alphabet alphabet, string tapeContent) {
+Tape::Tape(Alphabet alphabet, string tapeContent, Symbol whiteSymbol) {
   alphabet_ = alphabet;
   setTape(tapeContent);
   head_ = tape_.begin();
-  cout << "HEAD " << head_->getSymbol() << endl;
+  whiteSymbol_ = whiteSymbol;
 }
 
 
@@ -31,6 +31,30 @@ void Tape::setTape(string tapeContent) {
 }
 
 
+void Tape::setHead(Symbol newHeadSymbol) {
+  head_->setSymbol(newHeadSymbol.getSymbol());
+}
+
+
 Alphabet Tape::getAlphabet() const {
   return alphabet_;
+}
+
+
+list<Symbol>::iterator& Tape::getHead() {
+  return head_;
+}
+
+
+void Tape::moveLeft() {
+  if (head_ == tape_.begin()) 
+    tape_.push_front(whiteSymbol_);
+  head_--;
+}
+    
+    
+void Tape::moveRight() {
+  if (head_ == tape_.end()) 
+    tape_.push_back(whiteSymbol_);
+  head_++;
 }

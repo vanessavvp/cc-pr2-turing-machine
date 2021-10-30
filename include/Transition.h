@@ -35,8 +35,9 @@ class Transition {
     vector<Symbol> getReadingSymbols();
     string getNextState();
     vector<Symbol> getWritingSymbols();
+    vector<string> getMovements();
     void printTransition();
-    //bool isPossibleToTransit(string symbolToRead, Symbol topStackSymbol);
+    bool isPossibleToTransit(Symbol headTape, int index);
 
   private:
     string currentState_;
