@@ -22,6 +22,16 @@ bool TuringMachine::isComment(string lineInfo) {
 }
 
 
+bool TuringMachine::hasState(string lineInfo, vector<State>& states) {
+  for (auto& state : states) {
+    if (state.getIdentifier() == lineInfo) {
+      return true;
+    }
+  }
+  return false;
+}
+
+
 void TuringMachine::saveStates(string lineInfo, vector<State>& states) {
   string stateIdentifier;
   stringstream token(lineInfo);
@@ -56,6 +66,22 @@ void TuringMachine::setTapeAlphabet(string lineInfo) {
 }
 
 
+void TuringMachine::setInitialState(string lineInfo, vector<State>& states) {
+  string error;
+  if (hasState(lineInfo, states)) {
+    for (auto state : states) {
+      if (state.getIdentifier() == lineInfo) {
+        state.setInitial(true);
+        currentState_ = lineInfo;
+      }
+    }
+  } else {
+    error = "The readed state is not part of the Turing Machine states\n";
+    throw error;
+  }
+}
+
+
 void TuringMachine::readFile(string inputFilename) {
   ifstream file(inputFilename);
   string lineInfo;
@@ -84,11 +110,20 @@ void TuringMachine::readFile(string inputFilename) {
     // Tape alphabet
     getline(file, lineInfo);
     setTapeAlphabet(lineInfo);
-    cout << "Alfabeto cinta: ";
+    /*cout << "Alfabeto cinta: ";
     for (auto symbol: tapeAlphabet_.getAlphabet()) {
     cout << symbol.getSymbol() << " ";
-    }
-  
+    }*/
+
+    // Initial State
+    getline(file, lineInfo);
+    setInitialState(lineInfo, states);
+
+    // White symbol
+    getline(file, lineInfo);
+    whiteSymbol_ = lineInfo;
+
+    // Acceptation states
   }
 }
 

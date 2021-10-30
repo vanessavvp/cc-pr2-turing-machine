@@ -26,8 +26,10 @@ class TuringMachine  {
   public:
     TuringMachine(string inputFilename);
     bool isComment(string lineInfo);
+    bool hasState(string lineInfo, vector<State>& states);
     void readFile(string inputFilename);
     void setAlphabet(string lineInfo);
+    void setInitialState(string lineInfo, vector<State>& states);
     void setTapeAlphabet(string lineInfo);
     void saveStates(string lineInfo, vector<State>& states);
     void start();
