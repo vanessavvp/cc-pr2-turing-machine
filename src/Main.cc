@@ -11,8 +11,25 @@
 
 #include <iostream>
 
+#include "../include/TuringMachine.h"
+
 using namespace std;
 
 int main(int argc, char* argv[]) {
+  string inputFilename, inputString, menuRepeated;
   cout << "\n\tTuring Machine" << endl;
+  try {
+    cout << "\nPlease, enter the input file path of the Turing Machine definition: ";
+    cin >> inputFilename;
+    do {
+      cout << "Enter the input string for the Turing Machine Tape: ";
+      cin >> inputString;
+      TuringMachine turingMachine(inputFilename);
+
+      cout << "\nDo you want to repeat the process [y/n]: ";
+      cin >> menuRepeated;
+    } while ((menuRepeated == "y") || (menuRepeated == "Y"));
+  } catch (const string error) {
+    cerr << error << endl;
+  }
 }
