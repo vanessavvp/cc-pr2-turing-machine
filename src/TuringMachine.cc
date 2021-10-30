@@ -153,8 +153,7 @@ void TuringMachine::setTransition(string lineInfo, vector<State>& states) {
   if (it != states.end()) {
     (*it).addTransition(transition);
   }
-
-  transition.printTransition();
+  //transition.printTransition();
 }
 
 
@@ -211,6 +210,13 @@ void TuringMachine::readFile(string inputFilename) {
   }
 }
 
+
+void TuringMachine::setTapes(string tapeInput) {
+  for (int i = 0; i < numberOfTapes_; i++) {
+    Tape tape(tapeAlphabet_, tapeInput);
+    tapes_.push_back(tape);
+  }
+}
 
 void TuringMachine::start() {
 

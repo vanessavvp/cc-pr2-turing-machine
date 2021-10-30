@@ -35,6 +35,7 @@ class TuringMachine  {
     void setAcceptationStates(string lineInfo, vector<State>& states);
     void setTransition(string lineInfo, vector<State>& states);
     void setTapeAlphabet(string lineInfo);
+    void setTapes(string tapeInput);
     void saveStates(string lineInfo, vector<State>& states);
     void start();
 

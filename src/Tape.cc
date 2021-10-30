@@ -11,13 +11,23 @@
 
 #include "../include/Tape.h"
 
-Tape::Tape(Alphabet alphabet) {
+Tape::Tape(Alphabet alphabet, string tapeContent) {
   alphabet_ = alphabet;
+  setTape(tapeContent);
+  head_ = tape_.begin();
+  cout << "HEAD " << head_->getSymbol() << endl;
 }
 
 
 void Tape::setAlphabet(Alphabet alphabet) {
   alphabet_ = alphabet;
+}
+
+
+void Tape::setTape(string tapeContent) {
+  for (int i = 0; i < tapeContent.size(); i++) {
+    tape_.push_back(Symbol(string(1, tapeContent[i])));
+  }
 }
 
 

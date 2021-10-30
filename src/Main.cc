@@ -25,6 +25,7 @@ int main(int argc, char* argv[]) {
       cout << "Enter the input string for the Turing Machine Tape: ";
       cin >> inputString;
       TuringMachine turingMachine(inputFilename);
+      turingMachine.setTapes(inputString);
 
       cout << "\nDo you want to repeat the process [y/n]: ";
       cin >> menuRepeated;
