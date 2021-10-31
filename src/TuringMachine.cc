@@ -241,8 +241,33 @@ void TuringMachine::checkString(string inputString) {
 
 
 bool TuringMachine::start() {
-  auto it = find(states_.begin(), states_.end(), State(currentState_));
+  State current = *find(states_.begin(), states_.end(), State(currentState_));
   bool transitionFound = true;
-  
-  return true;
+
+  while (transitionFound == true) {
+    transitionFound = false;
+    current = *find(states_.begin(), states_.end(), State(currentState_));
+    for (auto transition: current.getTransitions()) {
+      vector<Symbol> readingHeads;
+      for (int i = 0; i < numberOfTapes_; i++) {
+        cout << "QUE PASA " << tapes_[i].getHeadSymbol().getSymbol() << endl;
+        Symbol symbol(tapes_[i].getHeadSymbol().getSymbol());
+        readingHeads.push_back(tapes_[i].getHeadSymbol());
+      }
+      if (readingHeads == transition.getReadingSymbols()) {
+        for (int i = 0; i < numberOfTapes_; i++) {
+          tapes_[i].setHead(transition.getWritingSymbols()[i]);
+          if (transition.getMovements()[i] == "R") {
+            tapes_[i].moveRight();
+          } else if (transition.getMovements()[i] == "L") {
+            tapes_[i].moveLeft();
+          }
+        }
+        currentState_ = transition.getNextState();
+        transitionFound = true;
+        break;
+      }
+    }
+  }
+  return (current.isAcceptation());
 }

@@ -10,6 +10,7 @@
  */
 
 #include <iostream>
+#include <filesystem>
 
 #include "../include/TuringMachine.h"
 

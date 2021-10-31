@@ -1,5 +1,5 @@
 OBJECTS = Main.o Symbol.o State.o Alphabet.o Transition.o Tape.o TuringMachine.o
-CFLAGS = -c -O3 -std=c++17 -I../include
+CFLAGS = -g -c -O3 -std=c++17 -I../include
 SRC = src/Main.cc src/Symbol.cc src/Transition.cc src/State.cc src/Alphabet.cc src/Tape.cc src/TuringMachine.cc
 exe: $(OBJECTS)
 	g++ $(SRC) -o exe

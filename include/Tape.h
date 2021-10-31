@@ -32,6 +32,7 @@ class Tape {
     void moveRight();
     Alphabet getAlphabet() const;
     list<Symbol>::iterator& getHead();
+    Symbol getHeadSymbol();
     void print();
     
   private:

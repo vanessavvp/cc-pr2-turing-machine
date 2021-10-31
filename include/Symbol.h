@@ -21,6 +21,7 @@ using namespace std;
 class Symbol {
   public:
     Symbol() {};
+    ~Symbol() {};
     Symbol(string symbol);
     string getSymbol();
     void setSymbol(string symbol);

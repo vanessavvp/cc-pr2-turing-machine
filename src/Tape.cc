@@ -32,7 +32,7 @@ void Tape::setTape(string tapeContent) {
 
 
 void Tape::setHead(Symbol newHeadSymbol) {
-  head_->setSymbol(newHeadSymbol.getSymbol());
+  *head_ = newHeadSymbol;
 }
 
 
@@ -46,26 +46,26 @@ list<Symbol>::iterator& Tape::getHead() {
 }
 
 
+Symbol Tape::getHeadSymbol() {
+  return (*head_).getSymbol();
+}
+
+
 void Tape::moveLeft() {
-  list<Symbol>::iterator it = find(tape_.begin(), tape_.end(), *head_);
-  advance(it, -1);
-  head_ = it;
-  if (it == tape_.begin()) {
+  if (head_ == tape_.begin()) {
     tape_.push_front(whiteSymbol_);
-    advance(it, +1);
-    head_ = it;
+    head_ = tape_.begin();
+  } else {
+    advance(head_, -1);
   }
 }
     
     
 void Tape::moveRight() {
-  list<Symbol>::iterator it = find(tape_.begin(), tape_.end(), *head_);
-  advance(it, 1);
-  head_ = it;
-  if (it == tape_.end()) {
+  advance(head_, 1);
+  if (head_ == tape_.end()) {
     tape_.push_front(whiteSymbol_);
-    advance(it, -1);
-    head_ = it;
+    advance(head_, -1);
   }
 }
 
