@@ -14,6 +14,8 @@
 
 #include <iostream>
 #include <list>
+#include <iterator>
+#include <algorithm>
 
 #include "./Alphabet.h"
 
@@ -30,6 +32,7 @@ class Tape {
     void moveRight();
     Alphabet getAlphabet() const;
     list<Symbol>::iterator& getHead();
+    void print();
     
   private:
     list<Symbol> tape_;

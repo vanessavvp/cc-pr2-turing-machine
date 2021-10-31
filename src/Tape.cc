@@ -47,14 +47,32 @@ list<Symbol>::iterator& Tape::getHead() {
 
 
 void Tape::moveLeft() {
-  if (head_ == tape_.begin()) 
+  list<Symbol>::iterator it = find(tape_.begin(), tape_.end(), *head_);
+  advance(it, -1);
+  head_ = it;
+  if (it == tape_.begin()) {
     tape_.push_front(whiteSymbol_);
-  head_--;
+    advance(it, +1);
+    head_ = it;
+  }
 }
     
     
 void Tape::moveRight() {
-  if (head_ == tape_.end()) 
-    tape_.push_back(whiteSymbol_);
-  head_++;
+  list<Symbol>::iterator it = find(tape_.begin(), tape_.end(), *head_);
+  advance(it, 1);
+  head_ = it;
+  if (it == tape_.end()) {
+    tape_.push_front(whiteSymbol_);
+    advance(it, -1);
+    head_ = it;
+  }
+}
+
+
+void Tape::print() {
+  for (auto symbol: tape_) {
+    cout << symbol.getSymbol() << " ";
+  }
+  cout << endl;
 }

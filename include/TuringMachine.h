@@ -37,6 +37,7 @@ class TuringMachine  {
     void setTapeAlphabet(string lineInfo);
     void setTapes(string tapeInput);
     void saveStates(string lineInfo, vector<State>& states);
+    void checkString(string inputString);
     bool start();
 
   private:

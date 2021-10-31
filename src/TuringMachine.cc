@@ -225,30 +225,24 @@ void TuringMachine::setTapes(string tapeInput) {
 }
 
 
-bool TuringMachine::start() {
-  /* Pseudocódigo - 101
-  Hay transiciones posibles para el estado actual (q0, head)? - Método booleano
-  */
-  string error;
-  auto it = find(states_.begin(), states_.end(), currentState_);
-  /*int transitionCounter = -1;
-  while (transitionCounter != 0) {
-    transitionCounter = 0;
-    for (auto transition: it->getTransitions()) {
-      for (int i = 0; i < numberOfTapes_; i++) {
-        if (transition.isPossibleToTransit(tapes_[i].getHead()->getSymbol(), i)) {
-          tapes_[i].setHead(transition.getWritingSymbols()[i]);
-          if (transition.getMovements()[i] == "R") {
-            tapes_[i].moveRight();
-          } else {
-            tapes_[i].moveLeft();
-          }
-          currentState_ = transition.getNextState();
-          it = find(states_.begin(), states_.end(), currentState_);
-          transitionCounter++;
-        } 
-      }
-    }
+void TuringMachine::checkString(string inputString) {
+  cout << "-----------------------------------------------------------\n\n";
+  if (start()) {
+    cout << inputString + " accepted - ";
+  } else {
+    cout << inputString + " not accepted - ";
   }
-  return (it->isAcceptation());*/
+  cout << "Final tapes: \n";
+  for (int i = 0; i <  numberOfTapes_; i++) {
+    cout << "Tape " << i << " -> ";
+    tapes_[i].print();
+  }
+}
+
+
+bool TuringMachine::start() {
+  auto it = find(states_.begin(), states_.end(), State(currentState_));
+  bool transitionFound = true;
+  
+  return true;
 }
