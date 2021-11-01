@@ -26,7 +26,7 @@ using namespace std;
 
 class TuringMachine  {
   public:
-    TuringMachine(string inputFilename);
+    TuringMachine(string inputFilename, string inputString);
     bool isComment(string lineInfo);
     bool hasState(string lineInfo, vector<State>& states);
     void readFile(string inputFilename);

@@ -13,9 +13,11 @@
 
 Tape::Tape(Alphabet alphabet, string tapeContent, Symbol whiteSymbol) {
   alphabet_ = alphabet;
-  setTape(tapeContent);
-  head_ = tape_.begin();
+  for (int i = 0; i < tapeContent.size(); i++) {
+    tape_.push_back(Symbol(string(1, tapeContent[i])));
+  }
   whiteSymbol_ = whiteSymbol;
+  head_ = tape_.begin();
 }
 
 
@@ -32,7 +34,7 @@ void Tape::setTape(string tapeContent) {
 
 
 void Tape::setHead(Symbol newHeadSymbol) {
-  *head_ = newHeadSymbol;
+  head_->setSymbol(newHeadSymbol.getSymbol());
 }
 
 
@@ -46,7 +48,7 @@ list<Symbol>::iterator& Tape::getHead() {
 }
 
 
-Symbol Tape::getHeadSymbol() {
+string Tape::getHeadSymbol() {
   return (*head_).getSymbol();
 }
 

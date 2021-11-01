@@ -11,8 +11,13 @@
 
 #include "../include/TuringMachine.h"
 
-TuringMachine::TuringMachine(string inputFilename) {
+TuringMachine::TuringMachine(string inputFilename, string inputString) {
   readFile(inputFilename);
+  for (int i = 0; i < numberOfTapes_; i++) {
+    Tape tape(tapeAlphabet_, inputString, whiteSymbol_);
+    tapes_.push_back(tape);
+  }
+  checkString(inputString);
 }
 
 
@@ -243,22 +248,30 @@ void TuringMachine::checkString(string inputString) {
 bool TuringMachine::start() {
   State current = *find(states_.begin(), states_.end(), State(currentState_));
   bool transitionFound = true;
-
+  int count = 0;
   while (transitionFound == true) {
+    for (int i = 0; i <  numberOfTapes_; i++) {
+    cout << "Tape " << i << " -> ";
+    tapes_[i].print();
+    }
     transitionFound = false;
     current = *find(states_.begin(), states_.end(), State(currentState_));
     for (auto transition: current.getTransitions()) {
       vector<Symbol> readingHeads;
       for (int i = 0; i < numberOfTapes_; i++) {
-        cout << "QUE PASA " << tapes_[i].getHeadSymbol().getSymbol() << endl;
-        Symbol symbol(tapes_[i].getHeadSymbol().getSymbol());
-        readingHeads.push_back(tapes_[i].getHeadSymbol());
+        count++;
+        cout << " count: " << count << endl;
+        cout << "QUE PASA " << tapes_[i].getHeadSymbol() << endl;
+        Symbol symbol(tapes_[i].getHeadSymbol());
+        readingHeads.push_back(tapes_[i].getHead()->getSymbol());
       }
       if (readingHeads == transition.getReadingSymbols()) {
         for (int i = 0; i < numberOfTapes_; i++) {
           tapes_[i].setHead(transition.getWritingSymbols()[i]);
           if (transition.getMovements()[i] == "R") {
             tapes_[i].moveRight();
+            // cout << "QUE PASA2 " << tapes_[i].getHeadSymbol() << endl;
+
           } else if (transition.getMovements()[i] == "L") {
             tapes_[i].moveLeft();
           }
