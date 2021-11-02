@@ -149,7 +149,12 @@ void TuringMachine::setTransition(string lineInfo, vector<State>& states) {
   vector<string> movements;
   for (int i = 0; i < numberOfTapes_; i++) {
     ss >> word;
-    movements.push_back(word);
+    if ((word == "R") || (word == "L") || (word == "S")) {
+      movements.push_back(word);
+    } else {
+      error = "Error: The entered movement is not a valid\n";
+      throw error;
+    }
   }
   transition.setMovements(movements);
 
