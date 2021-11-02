@@ -38,13 +38,14 @@ class TuringMachine  {
     void setTapes(string tapeInput);
     void saveStates(string lineInfo, vector<State>& states);
     void checkString(string inputString);
-    bool start();
+    bool start(string inputString);
 
   private:
     set<State> states_;
     Alphabet alphabet_;
     Alphabet tapeAlphabet_;
     string currentState_;
+    string initialState_;
     string whiteSymbol_;
     int numberOfTapes_;
     vector<Tape> tapes_;

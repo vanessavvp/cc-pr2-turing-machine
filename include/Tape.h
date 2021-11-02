@@ -24,16 +24,20 @@ using namespace std;
 #pragma once
 class Tape {
   public:
-    Tape(Alphabet alphabet, string tapeContent, Symbol whiteSymbol);
+    Tape () {};
+    Tape(Alphabet alphabet, Symbol whiteSymbol);
     void setAlphabet(Alphabet alphabet);
     void setTape(string tapeContent);
-    void setHead(Symbol newHeadSymbol);
+    void setHead(list<Symbol>::iterator& head);
+    void setHeadSymbol(Symbol newHeadSymbol);
     void moveLeft();
     void moveRight();
     Alphabet getAlphabet() const;
     list<Symbol>::iterator& getHead();
     string getHeadSymbol();
     void print();
+    list<Symbol> getTape();
+
     
   private:
     list<Symbol> tape_;

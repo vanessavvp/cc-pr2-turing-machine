@@ -11,13 +11,9 @@
 
 #include "../include/Tape.h"
 
-Tape::Tape(Alphabet alphabet, string tapeContent, Symbol whiteSymbol) {
+Tape::Tape(Alphabet alphabet, Symbol whiteSymbol) {
   alphabet_ = alphabet;
-  for (int i = 0; i < tapeContent.size(); i++) {
-    tape_.push_back(Symbol(string(1, tapeContent[i])));
-  }
   whiteSymbol_ = whiteSymbol;
-  head_ = tape_.begin();
 }
 
 
@@ -26,15 +22,22 @@ void Tape::setAlphabet(Alphabet alphabet) {
 }
 
 
-void Tape::setTape(string tapeContent) {
-  for (int i = 0; i < tapeContent.size(); i++) {
-    tape_.push_back(Symbol(string(1, tapeContent[i])));
-  }
+void Tape::setHead(list<Symbol>::iterator& head) {
+  head_ = head;
 }
 
 
-void Tape::setHead(Symbol newHeadSymbol) {
-  head_->setSymbol(newHeadSymbol.getSymbol());
+void Tape::setTape(string tapeContent) {
+  tape_.clear();
+  for (int i = 0; i < tapeContent.size(); i++) {
+    tape_.push_back(Symbol(string(1, tapeContent[i])));
+  }
+  head_ = tape_.begin();
+}
+
+
+void Tape::setHeadSymbol(Symbol newHeadSymbol) {
+  (*head_).setSymbol(newHeadSymbol.getSymbol());
 }
 
 
@@ -66,9 +69,10 @@ void Tape::moveLeft() {
 void Tape::moveRight() {
   advance(head_, 1);
   if (head_ == tape_.end()) {
-    tape_.push_front(whiteSymbol_);
+    tape_.push_back(whiteSymbol_);
     advance(head_, -1);
-  }
+  } 
+  
 }
 
 
@@ -77,4 +81,9 @@ void Tape::print() {
     cout << symbol.getSymbol() << " ";
   }
   cout << endl;
+}
+
+
+list<Symbol> Tape::getTape() {
+  return tape_;
 }

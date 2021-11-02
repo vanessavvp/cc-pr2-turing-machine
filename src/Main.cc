@@ -16,7 +16,7 @@
 
 using namespace std;
 
-int main(int argc, char* argv[]) {
+int main(int argc, char** argv) {
   string inputFilename, inputString, menuRepeated;
   cout << "\n\tTuring Machine" << endl;
   try {
@@ -26,8 +26,8 @@ int main(int argc, char* argv[]) {
       cout << "Enter the input string for the Turing Machine Tape: ";
       cin >> inputString;
       TuringMachine turingMachine(inputFilename, inputString);
+      turingMachine.checkString(inputString);
       // turingMachine.setTapes(inputString);
-      // turingMachine.checkString(inputString);
 
       cout << "\nDo you want to repeat the process [y/n]: ";
       cin >> menuRepeated;

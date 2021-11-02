@@ -12,7 +12,7 @@
       "targetArchitecture": "x86_64",
       "program": "${workspaceFolder}/exe",
       "args": ["${workspaceFolder}/input/Ejemplo_MT.txt"],
-      "stopAtEntry": false,
+      "stopAtEntry": true,
       "cwd": "${fileDirname}",
       "environment": [],
       "externalConsole": false,
