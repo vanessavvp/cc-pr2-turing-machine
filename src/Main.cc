@@ -18,7 +18,7 @@ using namespace std;
 
 int main(int argc, char** argv) {
   string inputFilename, inputString, menuRepeated;
-  cout << "\n\tTuring Machine" << endl;
+  cout << "\n\tTuring Machine with infinite tape in both directions and every movement(L,R,S)" << endl;
   try {
     cout << "\nPlease, enter the input file path of the Turing Machine definition: ";
     cin >> inputFilename;
@@ -27,7 +27,6 @@ int main(int argc, char** argv) {
       cin >> inputString;
       TuringMachine turingMachine(inputFilename, inputString);
       turingMachine.checkString(inputString);
-      // turingMachine.setTapes(inputString);
 
       cout << "\nDo you want to repeat the process [y/n]: ";
       cin >> menuRepeated;

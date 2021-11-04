@@ -254,8 +254,7 @@ void TuringMachine::checkString(string inputString) {
 bool TuringMachine::start(string inputString) {
   currentState_ = initialState_;
   for (int i = 0; i < numberOfTapes_; i++) {
-    tapes_[i].setTape(inputString); // Antes tenía el head_ = tape.begin() en este metodo
-    cout << "Cabezal inicial " << tapes_[i].getHeadSymbol() << endl;
+    tapes_[i].setTape(inputString); 
   }
 
   State current = *find(states_.begin(), states_.end(), State(currentState_));
@@ -268,7 +267,6 @@ bool TuringMachine::start(string inputString) {
     }
     transitionFound = false;
     current = *find(states_.begin(), states_.end(), State(currentState_));
-    cout << "Estado actual " << currentState_ << endl;
     vector<Symbol> readingHeads;
     for (int i = 0; i < numberOfTapes_; i++) {
       Symbol symbol(tapes_[i].getHeadSymbol());
@@ -278,9 +276,7 @@ bool TuringMachine::start(string inputString) {
     for (auto transition: current.getTransitions()) {
       if (readingHeads == transition.getReadingSymbols()) {
         for (int i = 0; i < numberOfTapes_; i++) {
-          cout << "Cabezal actual" << tapes_[i].getHeadSymbol() << endl;
           tapes_[i].setHeadSymbol(transition.getWritingSymbols()[i]);
-          cout << "Cabezal cambiado " << tapes_[i].getHeadSymbol() << endl;
           if (transition.getMovements()[i] == "R") {    
             tapes_[i].moveRight();
           } else if (transition.getMovements()[i] == "L") {
